@@ -1,7 +1,20 @@
+using DominoPontaDeQuina.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DominoPontaDeQuina.Repository.Context;
 
-public class DominoDbContext : DbContext
+public class DominoDbContext(DbContextOptions<DominoDbContext> opcoes) : DbContext(opcoes)
 {
+    public DbSet<Usuario> Usuarios => Set<Usuario>();
+    public DbSet<Jogador> Jogadores => Set<Jogador>();
+    public DbSet<Jogo> Jogos => Set<Jogo>();
+    public DbSet<ParticipacaoJogo> ParticipacoesJogo => Set<ParticipacaoJogo>();
+
+    protected override void OnModelCreating(ModelBuilder modelo)
+    {
+        // Usuario e configurado pela Fluent API (classes IEntityTypeConfiguration deste assembly).
+        // Jogador usa Data Annotations e Jogo fica com as convencoes do EF Core.
+        modelo.ApplyConfigurationsFromAssembly(typeof(DominoDbContext).Assembly);
+        base.OnModelCreating(modelo);
+    }
 }
