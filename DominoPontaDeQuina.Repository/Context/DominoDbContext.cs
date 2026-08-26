@@ -7,13 +7,13 @@ public class DominoDbContext(DbContextOptions<DominoDbContext> opcoes) : DbConte
 {
     public DbSet<Usuario> Usuarios => Set<Usuario>();
     public DbSet<Jogador> Jogadores => Set<Jogador>();
-    public DbSet<Jogo> Jogos => Set<Jogo>();
-    public DbSet<ParticipacaoJogo> ParticipacoesJogo => Set<ParticipacaoJogo>();
+    public DbSet<Partida> Partidas => Set<Partida>();
+    public DbSet<ParticipacaoPartida> ParticipacoesPartida => Set<ParticipacaoPartida>();
 
     protected override void OnModelCreating(ModelBuilder modelo)
     {
-        // Usuario e configurado pela Fluent API (classes IEntityTypeConfiguration deste assembly).
-        // Jogador usa Data Annotations e Jogo fica com as convencoes do EF Core.
+        // Todas as entidades e relacionamentos sao mapeados pela Fluent API
+        // (classes IEntityTypeConfiguration deste assembly).
         modelo.ApplyConfigurationsFromAssembly(typeof(DominoDbContext).Assembly);
         base.OnModelCreating(modelo);
     }

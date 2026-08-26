@@ -34,10 +34,5 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
 
         construtor.HasIndex(usuario => usuario.Email)
             .IsUnique();
-
-        construtor.HasMany(usuario => usuario.Jogadores)
-            .WithOne(jogador => jogador.Usuario)
-            .HasForeignKey(jogador => jogador.UsuarioId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }
