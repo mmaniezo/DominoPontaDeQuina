@@ -1,10 +1,11 @@
 using DominoPontaDeQuina.Domain.Entities;
+using DominoPontaDeQuina.Domain.Interfaces;
 using DominoPontaDeQuina.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace DominoPontaDeQuina.Repository.Repositories;
 
-public class ParticipacaoPartidaRepository(DominoDbContext contexto)
+public class ParticipacaoPartidaRepository(DominoDbContext contexto) : IParticipacaoPartidaRepository
 {
     public async Task<ParticipacaoPartida> AdicionarAsync(ParticipacaoPartida participacao, CancellationToken cancelamento = default)
     {
@@ -39,6 +40,12 @@ public class ParticipacaoPartidaRepository(DominoDbContext contexto)
             .Where(participacao => participacao.PartidaId == partidaId)
             .OrderBy(participacao => participacao.Posicao)
             .ToListAsync(cancelamento);
+
+    public Task<ParticipacaoPartida?> ObterPorPartidaEJogadorAsync(Guid partidaId, Guid jogadorId, CancellationToken cancelamento = default) =>
+        contexto.ParticipacoesPartida
+            .SingleOrDefaultAsync(
+                participacao => participacao.PartidaId == partidaId && participacao.JogadorId == jogadorId,
+                cancelamento);
 
     public Task<List<ParticipacaoPartida>> ListarPorJogadorAsync(Guid jogadorId, CancellationToken cancelamento = default) =>
         contexto.ParticipacoesPartida
