@@ -17,8 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DominoPontaDeQuina.Core\DominoPontaDeQuina.Core.csproj" />
-    <ProjectReference Include="..\DominoPontaDeQuina.Repository\DominoPontaDeQuina.Repository.csproj" />
-    <ProjectReference Include="..\DominoPontaDeQuina.Service\DominoPontaDeQuina.Service.csproj" />
   </ItemGroup>
 
 </Project>
